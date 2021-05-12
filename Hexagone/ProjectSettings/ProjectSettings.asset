@@ -748,10 +748,10 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  cloudProjectId: 110a1a13-8069-41ed-829d-d79e73423ef4
+  cloudProjectId: 9cd33050-8a8e-4a7b-8512-3846eaf52946
   framebufferDepthMemorylessMode: 0
-  projectName: New Unity Project
-  organizationId: tonybera301
+  projectName: Hexagone
+  organizationId: appziaunitydevs
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
