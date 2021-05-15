@@ -430,14 +430,14 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 120480830}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.8295036}
-  m_LocalScale: {x: 0.97500014, y: 0.97500014, z: 0.97500014}
+  m_LocalPosition: {x: 0, y: 0, z: 0.8294999}
+  m_LocalScale: {x: 0.9750001, y: 0.9750001, z: 0.9750001}
   m_Children:
   - {fileID: 156287355}
   - {fileID: 1691041954}
   - {fileID: 1339114299}
   m_Father: {fileID: 839114181}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1166,8 +1166,8 @@ Transform:
   m_LocalScale: {x: 1.025641, y: 1.025641, z: 1.025641}
   m_Children:
   - {fileID: 1030028025}
-  - {fileID: 120480831}
   - {fileID: 950192024}
+  - {fileID: 120480831}
   m_Father: {fileID: 875580458}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1443,7 +1443,7 @@ RectTransform:
   m_LocalScale: {x: 0.97500014, y: 0.97500014, z: 0.97500014}
   m_Children: []
   m_Father: {fileID: 839114181}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2507,7 +2507,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 87455182}
   m_HandleRect: {fileID: 87455181}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3409,6 +3409,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1258353621}
     m_Modifications:
+    - target: {fileID: 544333253100520661, guid: a19fc8da16b38cb43b5554bbf5a1792c,
+        type: 3}
+      propertyPath: m_Name
+      value: Room
+      objectReference: {fileID: 0}
     - target: {fileID: 2988053556212292022, guid: a19fc8da16b38cb43b5554bbf5a1792c,
         type: 3}
       propertyPath: m_Name
@@ -3518,6 +3523,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8379323941134794237, guid: a19fc8da16b38cb43b5554bbf5a1792c,
+        type: 3}
+      propertyPath: m_Name
+      value: Players
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a19fc8da16b38cb43b5554bbf5a1792c, type: 3}
