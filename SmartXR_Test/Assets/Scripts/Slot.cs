@@ -7,9 +7,23 @@ public class Slot : MonoBehaviour
 
     public bool IsOccupied => occupyingObject != null;
 
-    public void SetOccupyingObject(Draggable obj)
+    public bool TryOccupy(Draggable obj)
     {
+        if (IsOccupied)
+        {
+            return false;
+        }
+
         occupyingObject = obj;
+        return true;
+    }
+
+    public void FreeSlot()
+    {
+        if (occupyingObject != null)
+        {
+            occupyingObject = null;
+        }
     }
 
     public bool IsOccupiedBy(Draggable obj)
@@ -23,23 +37,5 @@ public class Slot : MonoBehaviour
             return false;
 
         return occupyingObject.index == index;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Draggable draggable = collision.GetComponent<Draggable>();
-        if (draggable != null)
-        {
-            draggable.SetCurrentSlot(this);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Draggable draggable = collision.GetComponent<Draggable>();
-        if (draggable != null)
-        {
-            draggable.ClearCurrentSlot();
-        }
     }
 }

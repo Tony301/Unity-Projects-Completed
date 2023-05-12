@@ -1,26 +1,29 @@
 using UnityEngine;
 using UnityEngine.UI;
-
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public Button checkButton;
-    public GameObject successPanel;
-    public GameObject failPanel;
-    public GameObject initialPanel;
+    [SerializeField] // expose in the Inspector
+    private Button checkButton;
 
-    
+    [SerializeField] // expose in the Inspector
+    private GameObject successPanel;
 
-    void Start()
-        {
-            checkButton = GameObject.FindGameObjectWithTag("CheckButton").GetComponent<Button>();
+    [SerializeField] // expose in the Inspector
+    private GameObject failPanel;
 
-       
-            initialPanel = GameObject.FindGameObjectWithTag("InitialPanel");
+    [SerializeField] // expose in the Inspector
+    private GameObject initialPanel;
 
-            checkButton.onClick.AddListener(CheckSlots);
-        }
+    private Slot[] slots;
+
+    private void Start()
+    {
+        slots = FindObjectsOfType<Slot>();
+
+        checkButton.onClick.AddListener(CheckSlots);
+    }
 
     public void ChangeScene(int sceneIndex)
     {
@@ -31,7 +34,7 @@ public class GameController : MonoBehaviour
     {
         bool allCorrect = true;
 
-        foreach (Slot slot in FindObjectsOfType<Slot>())
+        foreach (Slot slot in slots)
         {
             if (!slot.HasCorrectObject())
             {
@@ -57,10 +60,7 @@ public class GameController : MonoBehaviour
 
     public void RestartScene()
     {
-
-
         // Reload the current scene
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

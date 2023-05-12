@@ -6,44 +6,55 @@ public class Draggable : MonoBehaviour
 
     private bool isDragging = false;
     private Vector3 offset;
-    private Slot currentSlot; // store the slot that the object is currently over
+    private Vector3 originalPosition;
+    private Slot closestSlot;  // Store the closest slot
+
+    private void Start()
+    {
+        originalPosition = transform.position;
+    }
 
     private void Update()
     {
         if (isDragging)
         {
-            Vector3 newPosition = GetWorldPosition() + offset;
-            newPosition.z = 0; // keep the object at the same z-position
+            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) + offset;
+            newPosition.z = 0;
             transform.position = newPosition;
+
+            // Update the closest slot
+            closestSlot = FindClosestSlot();
         }
     }
 
-    private Vector3 GetWorldPosition()
+    private Slot FindClosestSlot()
     {
-        if (Application.platform == RuntimePlatform.Android)
+        Slot[] slots = FindObjectsOfType<Slot>();
+        Slot closest = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Slot slot in slots)
         {
-            if (Input.touchCount > 0)
+            float distance = Vector3.Distance(transform.position, slot.transform.position);
+            if (distance < closestDistance)
             {
-                return Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+                closestDistance = distance;
+                closest = slot;
             }
         }
-        else
-        {
-            return Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
 
-        return Vector3.zero;
+        return closest;
     }
 
     private void OnMouseDown()
     {
         isDragging = true;
-        offset = transform.position - GetWorldPosition();
+        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
 
-        // If this object is occupying a slot, clear it
-        if (currentSlot != null && currentSlot.IsOccupiedBy(this))
+        // Free the slot this object was occupying
+        if (closestSlot && closestSlot.IsOccupiedBy(this))
         {
-            currentSlot.SetOccupyingObject(null);
+            closestSlot.FreeSlot();
         }
     }
 
@@ -51,25 +62,16 @@ public class Draggable : MonoBehaviour
     {
         isDragging = false;
 
-        // If the object is released over a slot, snap it to the slot
-        if (currentSlot && !currentSlot.IsOccupied)
+        // If the object is released close to a slot, snap it to the slot
+        if (closestSlot && closestSlot.TryOccupy(this))
         {
-            Vector3 slotPosition = currentSlot.transform.position;
-            slotPosition.z = -1; // set a fixed Z position to ensure it appears on top
+            Vector3 slotPosition = closestSlot.transform.position;
+            slotPosition.z = -1;
             transform.position = slotPosition;
-            currentSlot.SetOccupyingObject(this);
         }
-    }
-
-    // Called when the object enters a slot's area
-    public void SetCurrentSlot(Slot slot)
-    {
-        currentSlot = slot;
-    }
-
-    // Called when the object leaves a slot's area
-    public void ClearCurrentSlot()
-    {
-        currentSlot = null;
+        else
+        {
+            transform.position = originalPosition;
+        }
     }
 }
